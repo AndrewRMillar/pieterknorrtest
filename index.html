@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="nl" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klassieke Olieverfschilderijen - Portfolio</title>
+    <meta name="description"
+        content="Portfolio van een klassieke olieverfschilder gespecialiseerd in traditionele technieken en tijdloze kunstwerken.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'media',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Georgia', 'Times New Roman', 'serif'],
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        'warm-amber': {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom styles for smooth transitions and dark mode */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Dark mode styles using prefers-color-scheme */
+        @media (prefers-color-scheme: dark) {
+            html {
+                color-scheme: dark;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 font-serif leading-relaxed"
+    x-data="initPortfolio()">
+
+    <!-- Navigation -->
+    <nav
+        class="fixed top-0 w-full bg-zinc-50/90 dark:bg-zinc-900/90 backdrop-blur-sm z-40 border-b border-zinc-200 dark:border-zinc-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="font-sans font-semibold text-lg text-zinc-900 dark:text-zinc-100" x-text="artist">
+                    Pieter Knorr
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#hero"
+                        class="text-zinc-700 dark:text-zinc-300 hover:text-warm-amber-600 dark:hover:text-warm-amber-400 font-sans text-sm">Home</a>
+                    <a href="#gallery"
+                        class="text-zinc-700 dark:text-zinc-300 hover:text-warm-amber-600 dark:hover:text-warm-amber-400 font-sans text-sm">Werk</a>
+                    <a href="#about"
+                        class="text-zinc-700 dark:text-zinc-300 hover:text-warm-amber-600 dark:hover:text-warm-amber-400 font-sans text-sm">Over</a>
+                    <a href="#exhibitions"
+                        class="text-zinc-700 dark:text-zinc-300 hover:text-warm-amber-600 dark:hover:text-warm-amber-400 font-sans text-sm">Tentoonstellingen</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="/ree.png" alt="Dam hertje" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30"></div>
+        </div>
+
+        <div class="relative z-10 text-center text-white px-4">
+            <p class="text-sm font-sans uppercase tracking-wider mb-4 text-warm-amber-200">Nieuwste werk</p>
+            <h1 class="text-4xl md:text-6xl font-serif mb-4 leading-tight">Dam hertje</h1>
+            <p class="text-lg md:text-xl font-sans text-zinc-200">2025</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-zinc-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif text-zinc-900 dark:text-zinc-100 mb-4">Werk</h2>
+                <p class="text-lg text-zinc-600 dark:text-zinc-400 font-sans max-w-2xl mx-auto">
+                    Een kleine selectie van van mijn werk, elk met zorg en traditie geschilderd.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div class="group cursor-pointer" @click="openPainting({
+                         title: 'Portret van een Dame',
+                         year: '2024',
+                         description: 'Klassiek portret in olieverf op doek, 60x80cm',
+                         image: 'https://placehold.co/600x450'
+                     })">
+                    <div
+                        class="relative overflow-hidden rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-300">
+                        <img src="https://placehold.co/400x300" alt="Portret van een Dame"
+                            class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-serif text-zinc-900 dark:text-zinc-100">Portret van een Dame</h3>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">2024</p>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer" @click="openPainting({
+                         title: 'Landschap bij Zonsondergang',
+                         year: '2023',
+                         description: 'Romantisch landschap in warme tinten, 70x100cm',
+                         image: 'https://placehold.co/600x800'
+                     })">
+                    <div
+                        class="relative overflow-hidden rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-300">
+                        <img src="https://placehold.co/400x300" alt="Landschap bij Zonsondergang"
+                            class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-serif text-zinc-900 dark:text-zinc-100">Landschap bij Zonsondergang</h3>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">2023</p>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer" @click="openPainting({
+                         title: 'Stilleven met Fruit',
+                         year: '2023',
+                         description: 'Klassiek stilleven in de traditie van de oude meesters, 50x60cm',
+                         image: 'https://placehold.co/600x500'
+                     })">
+                    <div
+                        class="relative overflow-hidden rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-300">
+                        <img src="https://placehold.co/400x300" alt="Stilleven met Fruit"
+                            class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-serif text-zinc-900 dark:text-zinc-100">Stilleven met Fruit</h3>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">2023</p>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer" @click="openPainting({
+                         title: 'Studie van Licht',
+                         year: '2022',
+                         description: 'Experimentele studie naar licht en schaduw, 40x50cm',
+                         image: 'https://placehold.co/600x480'
+                     })">
+                    <div
+                        class="relative overflow-hidden rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-300">
+                        <img src="https://placehold.co/400x300" alt="Studie van Licht"
+                            class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-serif text-zinc-900 dark:text-zinc-100">Studie van Licht</h3>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">2022</p>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer" @click="openPainting({
+                         title: 'Bloemen in Vaas',
+                         year: '2022',
+                         description: 'Delicate bloemenstudie in zachte pasteltinten, 45x60cm',
+                         image: 'https://placehold.co/600x450'
+                     })">
+                    <div
+                        class="relative overflow-hidden rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-300">
+                        <img src="https://placehold.co/400x300" alt="Bloemen in Vaas"
+                            class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-serif text-zinc-900 dark:text-zinc-100">Bloemen in Vaas</h3>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">2022</p>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer" @click="openPainting({
+                         title: 'Venetiaans Kanaal',
+                         year: '2021',
+                         description: 'Impressie van Venetië in warme ochtendtinten, 80x60cm',
+                         image: 'https://placehold.co/600x800'
+                     })">
+                    <div
+                        class="relative overflow-hidden rounded-lg shadow-lg group-hover:shadow-xl transition-all duration-300">
+                        <img src="https://placehold.co/400x300" alt="Venetiaans Kanaal"
+                            class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-serif text-zinc-900 dark:text-zinc-100">Venetiaans Kanaal</h3>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">2021</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-zinc-50 dark:bg-zinc-900">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif text-zinc-900 dark:text-zinc-100 mb-4">Over de Kunstenaar
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="https://placehold.co/600x500" alt="Portret van de kunstenaar in het atelier"
+                        class="w-full rounded-lg shadow-lg">
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-lg text-zinc-700 dark:text-zinc-300 font-sans leading-relaxed">
+                        Als klassiek geschoolde olieverfschilder streef ik ernaar de tijdloze schoonheid van de
+                        traditionele schilderkunst nieuw leven in te blazen. Mijn werk is geworteld in de technieken van
+                        de oude meesters, waarbij ik bijzondere aandacht besteed aan licht, compositie en de subtiele
+                        nuances van kleur.
+                    </p>
+
+                    <p class="text-lg text-zinc-700 dark:text-zinc-300 font-sans leading-relaxed">
+                        Na mijn opleiding aan de Koninklijke Academie voor Schone Kunsten heb ik mij gespecialiseerd in
+                        portretten, stillevens en landschappen. Elk schilderij wordt met de grootste zorg en respect
+                        voor het ambacht gecreëerd, waarbij ik uitsluitend hoogwaardige materialen en traditionele
+                        technieken gebruik.
+                    </p>
+
+                    <p class="text-lg text-zinc-700 dark:text-zinc-300 font-sans leading-relaxed">
+                        Mijn artistieke missie is het bewaren en doorgeven van de klassieke schildertradities aan
+                        toekomstige generaties, terwijl ik tegelijkertijd mijn eigen hedendaagse visie inbreng in elk
+                        werk.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exhibitions Section -->
+    <section id="exhibitions" class="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-zinc-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif text-zinc-900 dark:text-zinc-100 mb-4">Tentoonstellingen</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-serif text-zinc-900 dark:text-zinc-100 mb-8 text-center">Voorbije
+                        Tentoonstellingen</h3>
+
+                    <div class="space-y-8">
+                        <div class="border-l-4 border-warm-amber-500 pl-6">
+                            <h4 class="text-lg font-serif text-zinc-900 dark:text-zinc-100 mb-2">Klassieke Meesters
+                                Herleeft</h4>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400 mb-1">15 maart - 30 april 2024
+                            </p>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400">Galerie De Nieuwe Tijd,
+                                Amsterdam</p>
+                        </div>
+
+                        <div class="border-l-4 border-warm-amber-500 pl-6">
+                            <h4 class="text-lg font-serif text-zinc-900 dark:text-zinc-100 mb-2">Licht en Schaduw</h4>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400 mb-1">10 oktober - 15 november
+                                2023</p>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400">Kunstcentrum Utrecht</p>
+                        </div>
+
+                        <div class="border-l-4 border-warm-amber-500 pl-6">
+                            <h4 class="text-lg font-serif text-zinc-900 dark:text-zinc-100 mb-2">Portretten van Onze
+                                Tijd</h4>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400 mb-1">5 mei - 20 juni 2023</p>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400">Museum voor Hedendaagse Kunst,
+                                Den Haag</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-serif text-zinc-900 dark:text-zinc-100 mb-8 text-center">Toekomstige
+                        Tentoonstellingen</h3>
+
+                    <div class="space-y-8">
+                        <div class="border-l-4 border-indigo-500 pl-6">
+                            <h4 class="text-lg font-serif text-zinc-900 dark:text-zinc-100 mb-2">Stillevens in Olieverf
+                            </h4>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400 mb-1">12 juni - 25 juli 2025
+                            </p>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400">Galerie Moderne Klassiek,
+                                Rotterdam</p>
+                        </div>
+
+                        <div class="border-l-4 border-indigo-500 pl-6">
+                            <h4 class="text-lg font-serif text-zinc-900 dark:text-zinc-100 mb-2">Groepsexpositie:
+                                Nederlandse Realisten</h4>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400 mb-1">15 september - 30 oktober
+                                2025</p>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400">Rijksmuseum, Amsterdam</p>
+                        </div>
+
+                        <div class="border-l-4 border-indigo-500 pl-6 opacity-60">
+                            <h4 class="text-lg font-serif text-zinc-900 dark:text-zinc-100 mb-2">Solo Expositie (Titel
+                                TBA)</h4>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400 mb-1">Voorjaar 2026</p>
+                            <p class="text-sm font-sans text-zinc-600 dark:text-zinc-400">Locatie wordt nog
+                                bekendgemaakt</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-zinc-900 dark:bg-zinc-950 text-zinc-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-serif text-white mb-4">Contact</h3>
+                    <p class="font-sans text-sm mb-2">
+                        <a href="mailto:info@klassiekekunst.nl" class="hover:text-warm-amber-400 transition-colors">
+                            info@klassiekekunst.nl
+                        </a>
+                    </p>
+                    <p class="font-sans text-sm">+31 6 1234 5678</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-serif text-white mb-4">Atelier</h3>
+                    <p class="font-sans text-sm">Kunstenaarslaan 123</p>
+                    <p class="font-sans text-sm">1000 AB Amsterdam</p>
+                    <p class="font-sans text-sm">Nederland</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-serif text-white mb-4">Volg Mij</h3>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="text-zinc-400 hover:text-warm-amber-400 transition-colors font-sans text-sm">Instagram</a>
+                        <a href="#"
+                            class="text-zinc-400 hover:text-warm-amber-400 transition-colors font-sans text-sm">Facebook</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-zinc-700 mt-8 pt-8 text-center">
+                <p class="font-sans text-sm text-zinc-400">
+                    © <span x-text="year">2025</span> Klassieke Kunst. Alle rechten voorbehouden.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Painting Details -->
+    <div x-show="showModal" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+
+        <div class="fixed inset-0 bg-black/75" @click="closeModal()"></div>
+
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div x-show="showModal" x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 transform scale-95"
+                x-transition:enter-end="opacity-100 transform scale-100"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100 transform scale-100"
+                x-transition:leave-end="opacity-0 transform scale-95"
+                class="relative bg-white dark:bg-zinc-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+
+                <button @click="closeModal()"
+                    class="absolute top-4 right-4 z-10 bg-black/50 text-white rounded-full p-2 hover:bg-black/70 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+
+                <div class="grid md:grid-cols-2 gap-0 h-full">
+                    <div class="relative">
+                        <img x-bind:src="selectedPainting?.image" x-bind:alt="selectedPainting?.title"
+                            class="w-full h-full object-cover">
+                    </div>
+
+                    <div class="p-8 flex flex-col justify-center">
+                        <h3 x-text="selectedPainting?.title"
+                            class="text-2xl font-serif text-zinc-900 dark:text-zinc-100 mb-2"></h3>
+                        <p x-text="selectedPainting?.year"
+                            class="text-lg text-zinc-600 dark:text-zinc-400 font-sans mb-4"></p>
+                        <p x-text="selectedPainting?.description"
+                            class="text-zinc-700 dark:text-zinc-300 font-sans leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        function initPortfolio() {
+            return {
+                selectedPainting: null,
+                showModal: false,
+                artist: 'Pieter Knorr',
+                year: this.getCurrentYear(),
+                getCurrentYear() {
+                    const date = new Date();
+                    this.year = date.getFullYear();
+                },
+                openPainting(painting) {
+                    this.selectedPainting = painting;
+                    this.showModal = true;
+                    document.body.style.overflow = 'hidden';
+                },
+                closeModal() {
+                    this.showModal = false;
+                    this.selectedPainting = null;
+                    document.body.style.overflow = 'auto';
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>
